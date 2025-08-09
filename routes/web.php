@@ -13,4 +13,11 @@ Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.
 
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
 
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/products', [\App\Http\Controllers\Admin\ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/{id}/edit', [\App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{id}', [\App\Http\Controllers\Admin\ProductController::class, 'update'])->name('products.update');
+});
+
+
 require __DIR__.'/auth.php'; // ini dari Breeze
